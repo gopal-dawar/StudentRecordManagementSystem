@@ -9,7 +9,7 @@ import org.student.record.management.entity.Student;
 import org.student.record.management.entity.StudentDetails;
 import org.student.record.management.utility.DesignPattern;
 
-public class Repository {
+public class StudentRepository {
 	private static SessionFactory factory = DesignPattern.getSessionFactory();
 
 	public static Student findByEmail(String email) {

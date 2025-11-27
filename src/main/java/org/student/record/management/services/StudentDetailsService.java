@@ -1,28 +1,40 @@
 package org.student.record.management.services;
 
+import java.util.List;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.student.record.management.entity.Student;
 import org.student.record.management.entity.StudentDetails;
-import org.student.record.management.repository.Repository;
+import org.student.record.management.repository.StudentDetaillsRepository;
+import org.student.record.management.repository.StudentRepository;
 import org.student.record.management.utility.DesignPattern;
 
 public class StudentDetailsService {
-	private static SessionFactory factory = DesignPattern.getSessionFactory();
 
-	public static void addStudentDetails(String email, StudentDetails sd) {
-		try (Session session = factory.openSession()) {
-			Transaction transaction = session.beginTransaction();
-			Student s = Repository.findByEmail(email);
-			if (s == null) {
-				System.out.println("Student not found");
-			}
-			if (Repository.addStudentDetails(s, sd)) {
-				System.out.println("Student Details Successfully Added");
-			}
-
-			transaction.commit();
+	public static void addOrUpdateStudentDetails(String email, StudentDetails sd) {
+		Student s = StudentRepository.findByEmail(email);
+		if (s == null) {
+			System.out.println("Wrong email entered");
+		} else {
+			StudentDetaillsRepository.addOrUpdateStudentDetials(email, sd);
+			System.out.println("Student Details Successfully Added");
 		}
 	}
+
+	public static void viewStudentDetailsByEmail(String email) {
+		List<Student> list = StudentDetaillsRepository.viewStudentDetailsByEmail(email);
+		if (list != null) {
+			list.stream().forEach(System.out::println);
+		} else {
+			System.out.println("Data not found");
+		}
+	}
+
+	public static void deleteStudentDetailsByEmail(String email) {
+		StudentDetaillsRepository.deleteStudentDetailsByEmail(email);
+		System.out.println("Successfully Deleted");
+	}
+
 }

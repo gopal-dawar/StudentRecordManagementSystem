@@ -5,19 +5,19 @@ import java.util.stream.Collectors;
 
 import org.student.record.management.entity.Student;
 import org.student.record.management.entity.StudentDetails;
-import org.student.record.management.repository.Repository;
+import org.student.record.management.repository.StudentRepository;
 
 public class StudentService {
 
 	public static void AddStudent(Student s, StudentDetails sd) {
-		Repository.saveData(s, sd);
+		StudentRepository.saveData(s, sd);
 		System.out.println("Successfully New Student Added");
 	}
 
 	public static void viewAllStudents(int id) {
-		if (Repository.viewStudents() != null) {
+		if (StudentRepository.viewStudents() != null) {
 			System.err.println("Student list");
-			List<Student> studentList = Repository.viewStudents();
+			List<Student> studentList = StudentRepository.viewStudents();
 			if (1 == id) {
 				studentList.stream().map(x -> {
 					x.setStudentDetails(null);
@@ -32,12 +32,12 @@ public class StudentService {
 	}
 
 	public static void updateMarksById(int id, int mark) {
-		Repository.updateMarks(id, mark);
+		StudentRepository.updateMarks(id, mark);
 		System.out.println("Successfully updated");
 	}
 
 	public static void deleteById(int id) {
-		if (Repository.deleteById(id)) {
+		if (StudentRepository.deleteById(id)) {
 			System.out.println("Successfully Deleted");
 		} else {
 			System.out.println("No Data Matches");
