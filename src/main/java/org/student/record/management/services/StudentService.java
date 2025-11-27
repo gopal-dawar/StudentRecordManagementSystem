@@ -1,7 +1,6 @@
 package org.student.record.management.services;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.student.record.management.entity.Student;
 import org.student.record.management.entity.StudentDetails;
